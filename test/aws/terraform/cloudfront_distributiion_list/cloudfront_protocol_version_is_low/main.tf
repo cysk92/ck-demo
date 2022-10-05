@@ -19,8 +19,8 @@ resource "aws_s3_bucket" "dist" {
     Name = "dist-cloud-test"
   }
   logging {
-   	target_bucket = aws_s3_bucket.logging.id
-  	target_prefix = "log/"
+    target_bucket = aws_s3_bucket.logging.id
+    target_prefix = "log/"
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       }
     }
 
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "https-only"
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
