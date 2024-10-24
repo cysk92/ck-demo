@@ -42,12 +42,11 @@ jobs:
 
       - name: Create environment variables file
         run: |
-          grep "GITHUB_\|LW_\|CI_" > env.list
+          env | grep "GITHUB_\|LW_\|CI_" > env.list
           echo "LW_ACCOUNT=${{ secrets.LW_ACCOUNT }}" >> env.list
           echo "LW_API_KEY=${{ secrets.LW_API_KEY }}" >> env.list
           echo "LW_API_SECRET=${{ secrets.LW_API_SECRET }}" >> env.list
           echo "EXIT_FLAG=CRITICAL=1" >> env.list
-          echo "CI_GIT_REPO_URL=${{ github.server_url }}" >> env.list
 
       - name: Scan the repo for vulnerabilities in IaC
         run: |
