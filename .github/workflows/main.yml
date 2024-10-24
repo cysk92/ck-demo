@@ -43,16 +43,13 @@ jobs:
       - name: Scan the repo for vulnerabilities in IaC
 
         run: |
-
-             env | grep "GITHUB_\|LW_\|CI_" > env.list
-             echo "WORKSPACE=/app/src" >> env.list
              echo "EXIT_FLAG=critical=1" >> env.list
              docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec-iac:stable
 
         env:
 
           LW_ACCOUNT: ${{ secrets.LW_ACCOUNT }}
-
           LW_API_KEY: ${{ secrets.LW_API_KEY }}
-
           LW_API_SECRET: ${{ secrets.LW_API_SECRET }}
+          EXIT_FLAG: 'CRITICAL=1'
+          CI_GIT_REPO_URL: ${{ GITHUB_SERVER_URL }}
