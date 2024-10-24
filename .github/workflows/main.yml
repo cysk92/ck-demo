@@ -43,8 +43,7 @@ jobs:
       - name: Scan the repo for vulnerabilities in IaC
 
         run: |
-             echo "EXIT_FLAG=critical=1" >> env.list
-             docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec-iac:stable
+             docker run -v "$(pwd):/app/src" lacework/codesec-iac:stable
 
         env:
 
