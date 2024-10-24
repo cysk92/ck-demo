@@ -52,4 +52,4 @@ jobs:
           LW_API_KEY: ${{ secrets.LW_API_KEY }}
           LW_API_SECRET: ${{ secrets.LW_API_SECRET }}
           EXIT_FLAG: 'CRITICAL=1'
-          CI_GIT_REPO_URL: ${{ GITHUB_SERVER_URL }}
+          CI_GIT_REPO_URL: ${{ github.github_server_url }}
