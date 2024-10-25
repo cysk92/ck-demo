@@ -41,6 +41,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create environment variables file
+        # Create an environment variable file that would be passed to the IaC docker image. Note that all arguments need to be passed through here.
+        
         run: |
           env | grep "GITHUB_\|LW_\|CI_" > env.list
           echo "LW_ACCOUNT=${{ secrets.LW_ACCOUNT }}" >> env.list
@@ -50,7 +52,4 @@ jobs:
 
       - name: Scan the repo for vulnerabilities in IaC
         run: |
-          docker run \
-            --env-file env.list \
-            -v "$(pwd):/app/src" \
-            lacework/codesec-iac:stable
+          docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec:stable
