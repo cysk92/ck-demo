@@ -1,4 +1,4 @@
-name: lacework-iac-example-ga
+name: lacework-iac-example
 
 # Controls when the workflow will run
 
@@ -41,11 +41,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create environment variables file
-        # Create an environment variable file that would be passed to the IaC docker image. Note that all arguments need to be passed through here.
-        # env | grep "GITHUB_\|LW_\|CI_" > env.list
+        # Create an environment variable file that would be passed to the IaC docker image. Note that all relevant environment values need to be passed through here.
         run: |
-          echo ${{ github.server_url }}
-          echo "CI_GIT_REPO_URL=${{ github.server_url }}" >> env.list
+          env | grep "GITHUB_\|LW_\|CI_" > env.list
           echo "LW_ACCOUNT=${{ secrets.LW_ACCOUNT }}" >> env.list
           echo "LW_API_KEY=${{ secrets.LW_API_KEY }}" >> env.list
           echo "LW_API_SECRET=${{ secrets.LW_API_SECRET }}" >> env.list
