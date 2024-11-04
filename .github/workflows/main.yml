@@ -35,6 +35,7 @@ jobs:
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      #           env | grep "GITHUB_\|LW_\|CI_" > env.list
 
       - name: Checkout Code
 
@@ -43,7 +44,6 @@ jobs:
       - name: Create environment variables file
         # Create an environment variable file that would be passed to the IaC docker image. Note that all relevant environment values need to be passed through here.
         run: |
-          env | grep "GITHUB_\|LW_\|CI_" > env.list
           echo "LW_ACCOUNT=${{ secrets.LW_ACCOUNT }}" >> env.list
           echo "LW_API_KEY=${{ secrets.LW_API_KEY }}" >> env.list
           echo "LW_API_SECRET=${{ secrets.LW_API_SECRET }}" >> env.list
@@ -51,4 +51,4 @@ jobs:
 
       - name: Scan the repo for vulnerabilities in IaC
         run: |
-          docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec:stable
+          docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec:stable lacework iac scan -d ./
